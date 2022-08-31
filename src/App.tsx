@@ -20,64 +20,62 @@ function App() {
 
 	const handleClick = (choice: string) =>{
 			if (currentPlayer == 'Player 1'){
-				setPlayerOneChoice(choice)
-				setCurrentPlayer('Player 2')
-				setUserMessage(`${currentPlayer}, Select your choice`)
-			}
-			else{
-				setCurrentPlayer('Player 1')
-				setPlayerTwoChoice(choice)
-				checkWinner()
-				setUserMessage(`${currentPlayer}, Select your choice`)
-			}
-			
+        setPlayerOneChoice(choice)
+        setCurrentPlayer('Player 2')
+      }
+      else if (currentPlayer == 'Player 2'){
+        setPlayerTwoChoice(choice)
+        setCurrentPlayer('Player 1')
 		}
+    //setUserMessage(currentPlayer+', Select your choice')
+    console.log("player message setted")
+  }
 
 	const checkWinner = () =>{
-		console.log("player one:",playerOneChoice)
-		console.log("player two:",playerTwoChoice)
 		if (playerOneChoice == playerTwoChoice){
-			setWinner('tie')
+			alert('Tie!')
+      return
 		}
 		else if (playerOneWon(playerOneChoice,playerTwoChoice)){
-			setWinner('Player 1')
-			setGameOver('true')
+			alert('Player 1!')
+      return
 		}
 		else{
-			setWinner('Player 2')
-			setGameOver('true')
+			alert('Player 2!')
+      return
 		}
 	}
 
-useEffect(() =>{
-	if (gameOver == 'true' && winner != 'tie'){
-			alert(`${winner} has won!`)
-	}
-	else if(gameOver == 'true' && winner == 'tie'){
-		alert('Tie!')
-	}
-},[userMessage])
+  useEffect(() =>{
+    if (playerOneChoice != '' && playerTwoChoice != ''){
+      console.log("checando vencedor ")
+      checkWinner()
+      setWinner('')
+      setPlayerOneChoice('')
+      setPlayerTwoChoice('')
+    }
+  },[playerOneChoice,playerTwoChoice])
 
-return (
-	<div className="App">
-		<Container>
-			<Row id='line-1'>
-				<h1>{userMessage}</h1>
-			</Row>
-			<Row id='line-2'>
-				<Col onClick={() => handleClick('🖐️')}>
-					🖐️
-				</Col>
-				<Col onClick={() => handleClick('✊')}>
-					✊
-				</Col>
-				<Col onClick={() => handleClick('✌️')}>
-					✌️
-				</Col>
-			</Row>
-		</Container>
-	</div>
-)
+  return (
+    <div className="App">
+      <Container>
+        <Row id='line-1'>
+          <h1>{userMessage}</h1>
+        </Row>
+        <Row id='line-2'>
+          <Col onClick={() => handleClick('🖐️')}>
+            🖐️
+          </Col>
+          <Col onClick={() => handleClick('✊')}>
+            ✊
+          </Col>
+          <Col onClick={() => handleClick('✌️')}>
+            ✌️
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  )
 }
 
 export default App
