@@ -8,4 +8,5 @@
 #line-2{
     text-align: center;
     font-size: 10em;
+    user-select: none
 }

@@ -14,21 +14,19 @@ function App() {
 	const [currentPlayer,setCurrentPlayer] = useState('Player 1')
 	const [playerOneChoice, setPlayerOneChoice] = useState('')
 	const [playerTwoChoice, setPlayerTwoChoice] = useState('')
-	const [winner,setWinner] = useState('')
-	const [gameOver, setGameOver] = useState('false')
 	const [userMessage, setUserMessage] = useState('Player 1, Select your choice')
 
 	const handleClick = (choice: string) =>{
 			if (currentPlayer == 'Player 1'){
+        setUserMessage('Player 2, Select your choice')
         setPlayerOneChoice(choice)
         setCurrentPlayer('Player 2')
       }
       else if (currentPlayer == 'Player 2'){
+        setUserMessage('Player 1, Select your choice')
         setPlayerTwoChoice(choice)
         setCurrentPlayer('Player 1')
 		}
-    //setUserMessage(currentPlayer+', Select your choice')
-    console.log("player message setted")
   }
 
 	const checkWinner = () =>{
@@ -37,11 +35,11 @@ function App() {
       return
 		}
 		else if (playerOneWon(playerOneChoice,playerTwoChoice)){
-			alert('Player 1!')
+			alert('Player 1 has won!')
       return
 		}
 		else{
-			alert('Player 2!')
+			alert('Player 2 has won!')
       return
 		}
 	}
@@ -50,7 +48,6 @@ function App() {
     if (playerOneChoice != '' && playerTwoChoice != ''){
       console.log("checando vencedor ")
       checkWinner()
-      setWinner('')
       setPlayerOneChoice('')
       setPlayerTwoChoice('')
     }
